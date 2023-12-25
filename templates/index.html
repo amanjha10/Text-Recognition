@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Text Prediction</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #d0f0c0; 
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            width: 70%;
+            max-width: 800px;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff; 
+        }
+        .image-preview {
+            flex: 1;
+            margin-right: 20px;
+            max-width: 50%;
+        }
+        .image-preview img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .prediction-box {
+            flex: 1;
+            max-width: 50%;
+        }
+        .prediction-box h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Text Prediction</h1>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".jpg, .jpeg, .png">
+        <input type="submit" value="Upload">
+    </form>
+    <div class="container" id="prediction-box">
+        <div class="image-preview">
+            {% if prediction_image %}
+                <img src="{{ prediction_image }}" alt="Uploaded Image">
+            {% endif %}
+        </div>
+        <div class="prediction-box">
+            {% if prediction %}
+                <h2>Predicted Text:</h2>
+                <p>{{ prediction }}</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <script>
+        {% if prediction %}
+            document.getElementById('prediction-box').style.display = 'flex';
+        {% endif %}
+    </script>
+</body>
+</html>
